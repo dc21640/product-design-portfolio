@@ -3,6 +3,7 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { site } from "@/lib/site";
 import "./globals.css";
+import "./creative-polish.css";
 import "leaflet/dist/leaflet.css";
 
 export const metadata: Metadata = {

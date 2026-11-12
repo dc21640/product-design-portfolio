@@ -29,15 +29,43 @@ export function TransitPreview({ large = false }: { large?: boolean }) {
 }
 
 export function MusePreview({large=false}:{large?:boolean}) {
-  return <div className={`project-art art-muse ${large?'project-art-large':''}`} role="img" aria-label="Muse product interface showing a curated discovery gallery and spatial creative board">
-    <div className="muse-art-word" aria-hidden="true">muse<span>.</span></div>
-    <div className="muse-art-board" aria-hidden="true"><div className="muse-art-label">A SPACE FOR WHAT INSPIRES</div><div className="muse-art-paper"><img src="/demo-media/poster-02.jpg" alt=""/><span>01 / AFTER LIGHT</span></div><div className="muse-art-paper muse-art-offset"><img src="/demo-media/photo-coffee.jpg" alt=""/><span>02 / THE MORNING</span></div><div className="muse-art-tape">a quieter kind of discovery.</div></div><span className="art-label" aria-hidden="true">03 / VISUAL DISCOVERY</span>
+  return <div className={`project-art creative-cover muse-cover ${large?'project-art-large':''}`} role="img" aria-label="Muse visual discovery app cover: clearly readable Muse title beside a curated grid of moodboard references">
+    <div className="creative-cover-copy" aria-hidden="true">
+      <span className="creative-cover-overline"><span className="creative-cover-star">✳</span> A SPACE TO THINK VISUALLY</span>
+      <div className="creative-cover-title">Muse<span className="creative-cover-period">.</span></div>
+      <p>Collect what moves you.<br/>Give it a direction.</p>
+      <span className="creative-cover-footnote">DISCOVER <b>·</b> COLLECT <b>·</b> COMPOSE</span>
+    </div>
+    <div className="muse-cover-gallery" aria-hidden="true">
+      <div className="muse-cover-canvas">
+        <span className="muse-cover-canvas-top">BOARD / 01 <span>THE COLOUR STUDY</span></span>
+        <div className="muse-cover-pin muse-cover-pin-one"><img src="/demo-media/poster-02.jpg" alt=""/><small>AFTER LIGHT</small></div>
+        <div className="muse-cover-pin muse-cover-pin-two"><img src="/demo-media/photo-coffee.jpg" alt=""/><small>THE EVERYDAY</small></div>
+        <div className="muse-cover-pin muse-cover-pin-three"><img src="/demo-media/poster-04.jpg" alt=""/><small>FORM & FEELING</small></div>
+        <span className="muse-cover-note">A little less scrolling.<br/>A little more making.</span>
+      </div>
+    </div>
+    <span className="creative-cover-index" aria-hidden="true">03 / VISUAL DISCOVERY</span>
   </div>;
 }
 
 export function ExposurePreview({large=false}:{large?:boolean}) {
-  return <div className={`project-art art-exposure ${large?'project-art-large':''}`} role="img" aria-label="Exposure photography app interface with selected photos and a focused review image">
-    <div className="expo-art-browser" aria-hidden="true"><div className="expo-art-head"><strong>◧ &nbsp; exposure.</strong><span>EDITORIAL STUDIES &nbsp; / &nbsp; PRIVATE WORKSPACE</span></div><div className="expo-art-content"><div className="expo-art-small"><span>REVIEW / 001</span><h4>Make<br/>the cut.</h4><p>A quieter way to find the frame.</p><div>★ ★ ★ ★ ★</div></div><div className="expo-art-main-photo"><img src="/demo-media/photo-astronaut.jpg" alt=""/><span>FRAME_001.JPG &nbsp; / &nbsp; PICKED</span></div><div className="expo-art-film"><img src="/demo-media/photo-coffee.jpg" alt=""/><img src="/demo-media/photo-hubble.jpg" alt=""/><img src="/demo-media/photo-rocket.jpg" alt=""/></div></div></div><span className="art-label" aria-hidden="true">04 / PROFESSIONAL WORKFLOW</span>
+  return <div className={`project-art creative-cover exposure-cover ${large?'project-art-large':''}`} role="img" aria-label="Exposure professional photo culling app cover: clear Exposure title next to a photograph selection workspace">
+    <div className="creative-cover-copy" aria-hidden="true">
+      <span className="creative-cover-overline"><span className="exposure-cover-symbol">◧</span> THE PHOTOGRAPHER'S WORKSPACE</span>
+      <div className="creative-cover-title">Exposure<span className="creative-cover-period">.</span></div>
+      <p>From every frame<br/>to the right frame.</p>
+      <span className="creative-cover-footnote">CULL <b>·</b> REVIEW <b>·</b> DELIVER</span>
+    </div>
+    <div className="exposure-cover-stage" aria-hidden="true">
+      <div className="exposure-cover-editor">
+        <div className="exposure-cover-toolbar"><span>◧ &nbsp; CONTACT SHEET</span><span>12 IMAGES / 04 PICKS</span></div>
+        <div className="exposure-cover-hero"><img src="/demo-media/photo-camera.jpg" alt=""/><span>01 &nbsp; / &nbsp; SELECTED</span></div>
+        <div className="exposure-cover-strip"><div><img src="/demo-media/photo-astronaut.jpg" alt=""/></div><div><img src="/demo-media/photo-coffee.jpg" alt=""/></div><div><img src="/demo-media/photo-rocket.jpg" alt=""/></div><div><img src="/demo-media/photo-cat.jpg" alt=""/></div></div>
+      </div>
+      <span className="exposure-cover-sticker">THE FINAL FOUR <span>↗</span></span>
+    </div>
+    <span className="creative-cover-index" aria-hidden="true">04 / PHOTOGRAPHY WORKFLOW</span>
   </div>;
 }
 

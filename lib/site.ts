@@ -121,12 +121,13 @@ export const projects: Project[] = [
       {title:"Earn trust through simple storage",description:"Personal imports and board edits stay on the device, with a JSON export for portability.",tradeoff:"No account sync, public gallery links or live collaboration yet. The app says so rather than suggesting otherwise."}
     ],
     iterations: [
-      {before:"A single gallery with save buttons felt like a bookmarking app.",after:"A separate Studio turns saved material into a composition with movement and notes.",why:"Support actual synthesis after the discovery moment."},
-      {before:"Boards were named lists without a spatial identity.",after:"Image previews and item counts make collections immediately recognizable.",why:"Help users revisit the right idea without reading every title."},
+      {before:"The cover wordmark overlapped a decorative collage, making the product name hard to read.",after:"Muse has a dedicated high-contrast title panel beside a separate visual board preview, including at narrow phone widths.",why:"A project cover should first identify the work, then invite exploration."},
+      {before:"A gallery tile offered saving without much context about the reference.",after:"Each image opens an accessible detail view with its title, category, tags and attribution before saving.",why:"Give people enough context to decide whether a visual belongs on a board."},
+      {before:"A decorative hero did not explain where a first-time visitor should go.",after:"A compact onboarding card connects Discover, Boards and Studio, with a direct Open Studio action.",why:"A creative tool still needs an obvious next step."},
       {before:"Pointer interactions excluded keyboard-only users.",after:"Canvas cards can be selected and nudged with arrow keys, and removed from the keyboard.",why:"A productive tool should support different input methods."}
     ],
     testing: "Planned: observe whether new users can save a visual, create a board, arrange two images and a note, and export without instruction. No user testing has been conducted yet.",
-    testTasks: ["Find an image using a visual keyword", "Save it to a new board and add a note", "Rearrange two objects with keyboard or pointer", "Export the board and locate the downloaded file"],
+    testTasks: ["Open a gallery image, inspect its metadata and find another by keyword", "Save it to a new board and add a note", "Rearrange two objects with keyboard or pointer", "Export the board and locate the downloaded file"],
     boundaries: "This is a browser-local MVP. Sample visuals are authored graphic compositions and attributed demo photographs. Personal uploads are compressed and saved locally; storage quotas apply. There are no accounts, cloud sync, sharing permissions or AI-generated image search."
   },
   {
@@ -154,12 +155,13 @@ export const projects: Project[] = [
       {title:"Make export real",description:"A ZIP contains the selected images, a manifest and a readme; original uploads are stored in IndexedDB rather than sent to a server.",tradeoff:"Proofing is a local simulation, not a shareable client portal. Multi-device access and permission models require a backend."}
     ],
     iterations: [
-      {before:"A grid-only gallery encouraged repeated opening and closing of images.",after:"Focus mode offers full-size review, arrow-key navigation and filmstrip context.",why:"Reduce navigation overhead during repetitive culling decisions."},
-      {before:"A single 'favorite' state mixed photographer preferences and client feedback.",after:"Star ratings, picks, approvals and revision notes have distinct meanings.",why:"Separate different people's decisions into an understandable workflow."},
+      {before:"Important actions were distributed across modes without a clear order.",after:"A four-step strip guides Import → Rate and select → Client preview → Export, while a first-pass action takes users to the next unrated photo.",why:"Make the workflow legible before asking users to learn individual controls."},
+      {before:"Proofing could open an unfiltered gallery when no photos had been picked.",after:"Proofing shows only selected frames and an actionable empty state when there are no picks.",why:"Keep the client's view consistent with the photographer's selection decisions."},
+      {before:"The cover relied on a small mock interface to explain the product.",after:"A high-contrast Exposure title leads the composition, with a separate image-review preview to establish context.",why:"Improve scannability for recruiters and preserve the emotional impact of photographs."},
       {before:"A static export button would overpromise delivery.",after:"Actual selected files and review metadata are packaged in the browser.",why:"Make a polished interaction complete the real job-to-be-done."}
     ],
     testing: "Planned: ask photographers to import a small shoot, choose three selects, then have a second tester act as client and request one change. No external client testing has yet taken place.",
-    testTasks: ["Import multiple photographs and locate a particular frame", "Rate images and select three with keyboard controls", "Approve one frame and request a revision", "Download the selected-image ZIP and confirm its contents"],
+    testTasks: ["Use the guided workflow to import photos and locate a particular frame", "Rate images and select three with keyboard controls", "Approve one frame and request a revision", "Download the selected-image ZIP and confirm its contents"],
     boundaries: "A local MVP with starter sample photos and original uploaded image files in browser IndexedDB. There is no account system, invitation link, backend synchronization or real client collaboration. The proofing mode illustrates the interaction, and decisions are not delivered to external clients."
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "product-design-portfolio",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "tsc --noEmit",
     "test:gtfs": "node tests/gtfs-fixture.cjs",
-    "test:creative": "node tests/creative-checks.cjs"
+    "test:creative": "node tests/creative-checks.cjs",
+    "test:design": "node tests/design-qa.cjs"
   },
   "dependencies": {
     "next": "15.5.29",

@@ -159,3 +159,15 @@ In the browser, try:
 6. Check each application at phone width and keyboard-only operation.
 
 **Package verification:** The source was TSX-syntax checked; the new asset and route contract checks passed. Full TypeScript type-checking and a production Next.js build could not be completed in the packaging environment because npm package installation timed out. Run `npm run build` on your Mac before deployment and share the first failing build-log error if needed.
+
+
+## V7 — creative-product refinement
+
+This iteration polishes the existing Muse and Exposure products without changing their local-first architecture.
+
+- **Project covers:** Redesigned as two-column editorial compositions with a dedicated, high-contrast title area and separate imagery. The mobile versions stack text before media, rather than letting photos obscure the product names.
+- **Muse:** Discover now has a contextual start card and an Open Studio action. Selecting a visual opens its enlarged image, category, descriptive tags and source attribution; users can save directly from that detail view. Boards and keyboard-enabled spatial composition remain intact.
+- **Exposure:** A four-step workflow guide makes import, rating, client preview and export distinct. Review can jump to the next unrated frame. Proofing only includes selected photos and explains how to get started when there are none.
+- **Accessibility:** Larger operational text and touch targets, clearer keyboard focus, readable labels on the covers and responsive behavior at 320px–1440px.
+
+Run `npm run test:design` for the dependency-free integration checks in addition to the existing tests. A local production build (`npm run build`) is required before deployment. These iterations are designer-led reviews; no user-test results or commercial usage are claimed.

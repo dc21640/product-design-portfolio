@@ -1,60 +1,90 @@
 export const site = {
   name: "Daven Corrielus",
   initials: "DC",
-  title: "Product designer & engineering student",
-  location: "Virginia Tech · Blacksburg, VA",
-  // Add your real contact details before publishing.
-  email: "",
-  linkedin: "",
-  resumeUrl: "",
+  title: "Product Designer & Developer",
+  location: "Blacksburg, Virginia",
+  email: "dc21640@vt.edu",
+  linkedin: "https://www.linkedin.com/in/daven-corrielus/",
+  resumeUrl: "/resume.pdf",
 };
 
 export type Project = {
   slug: "clarity-ai" | "transitflow";
-  number: string;
+  index: string;
   title: string;
-  eyebrow: string;
-  subtitle: string;
+  category: string;
+  headline: string;
   summary: string;
   year: string;
-  tags: string[];
   status: string;
-  challenge: string;
-  direction: string;
-  focus: string[];
-  nextSteps: string[];
+  role: string;
+  tools: string;
+  timeline: string;
+  question: string;
+  approach: string;
+  experience: { step: string; title: string; description: string }[];
+  decisions: { title: string; description: string; tradeoff: string }[];
+  testing: string;
+  testTasks: string[];
+  boundaries: string;
 };
 
 export const projects: Project[] = [
   {
     slug: "clarity-ai",
-    number: "01",
+    index: "01",
     title: "Clarity AI",
-    eyebrow: "AI / RESEARCH / WEB APP",
-    subtitle: "Making research feel less overwhelming.",
-    summary: "A concept for an AI-assisted research workspace that helps students collect sources, ask better questions, and stay grounded in evidence.",
-    year: "2026 — Ongoing",
-    tags: ["Product design", "AI interactions", "Web app"],
-    status: "Concept in progress",
-    challenge: "Research often happens across browser tabs, PDFs, notes, and disconnected tools. How might a single workspace help students understand information while keeping sources visible and verifiable?",
-    direction: "Explore a calm, source-first interface where people can organize material, ask questions about their documents, and trace responses back to the original evidence.",
-    focus: ["Source-first AI responses", "Readable document organization", "Clear trust and citation patterns"],
-    nextSteps: ["Interview students about their research workflows", "Map tasks and prioritize the first-use experience", "Prototype document upload and cited answers", "Test clarity, trust, and navigation with users"],
+    category: "AI tools · Web experience",
+    headline: "Research with the evidence in view.",
+    summary: "An interactive concept for a research workspace that keeps AI-assisted answers connected to their sources.",
+    year: "2026",
+    status: "Independent concept · In progress",
+    role: "Product design, interaction design, frontend prototype",
+    tools: "Figma explorations, React, Next.js, AI-assisted development",
+    timeline: "2026 — ongoing",
+    question: "How might a research tool help students move from an answer to the evidence behind it, without losing their place?",
+    approach: "Rather than designing another chat window, I focused the first prototype on a single task: ask a question, follow a citation, and inspect its source alongside the answer.",
+    experience: [
+      { step: "01", title: "Choose a question", description: "A small set of sample prompts gives people a clear starting point instead of an empty input." },
+      { step: "02", title: "Read the response", description: "Short, structured answers include citations near the claims they support." },
+      { step: "03", title: "Inspect the evidence", description: "Selecting a citation reveals the relevant source excerpt without leaving the workspace." },
+    ],
+    decisions: [
+      { title: "Keep context on screen", description: "An evidence panel sits alongside the response, reducing the need to switch between tabs.", tradeoff: "Three columns add density, so the layout collapses on narrower screens." },
+      { title: "Make evidence actionable", description: "Citations are buttons that open source excerpts, not decorative reference numbers.", tradeoff: "This prototype uses short sample excerpts rather than full-length PDFs." },
+      { title: "Design for uncertainty", description: "The interface labels responses and sources as examples rather than implying verified AI output.", tradeoff: "Live model integration is deliberately out of scope at this stage." },
+    ],
+    testing: "I plan to test whether people can locate the source supporting a claim, understand the connection, and return to the answer without guidance.",
+    testTasks: ["Locate the evidence behind a sample claim", "Explain what the excerpt does—and does not—support", "Save an insight and return to another question"],
+    boundaries: "The interactive prototype runs on scripted questions, responses, and documents. It does not upload files, generate live answers, or claim results from user interviews.",
   },
   {
     slug: "transitflow",
-    number: "02",
+    index: "02",
     title: "TransitFlow",
-    eyebrow: "MOBILITY / WAYFINDING / MOBILE",
-    subtitle: "A calmer way to get from A to B.",
-    summary: "A transit-planning app concept designed to make route choices, transfers, and arrival information easier to understand at a glance.",
-    year: "2026 — Ongoing",
-    tags: ["Mobile UX", "Information design", "Accessibility"],
-    status: "Concept in progress",
-    challenge: "Choosing a transit route can require balancing arrival times, transfers, walking, and uncertainty. How might an interface make the tradeoffs understandable without overwhelming the rider?",
-    direction: "Explore a route-first experience with clear travel options, visible transfer details, and accessible wayfinding that supports confident decisions.",
-    focus: ["Route comparison at a glance", "Accessible transit information", "Helpful transfer and arrival details"],
-    nextSteps: ["Talk with commuters about their route-planning frustrations", "Diagram trip-planning and transfer journeys", "Prototype route comparison and trip detail screens", "Run usability tests on key navigation tasks"],
+    category: "Mobility · Mobile experience",
+    headline: "Choose a route with confidence.",
+    summary: "A transit-planning concept that makes the tradeoffs between duration, walking, and transfers easier to compare.",
+    year: "2026",
+    status: "Independent concept · In progress",
+    role: "Product design, information architecture, frontend prototype",
+    tools: "Figma explorations, React, Next.js, AI-assisted development",
+    timeline: "2026 — ongoing",
+    question: "How might route planning explain the differences between journeys at a glance, especially when the fastest option is not the easiest?",
+    approach: "I designed route selection around a small number of consistent attributes: total trip time, walking effort, and transfers. The interface lets riders compare first and inspect the detailed journey second.",
+    experience: [
+      { step: "01", title: "Review the journey", description: "Origin and destination are kept visible, using clearly labeled sample locations." },
+      { step: "02", title: "Compare alternatives", description: "Each route presents the same three decision factors in a predictable order." },
+      { step: "03", title: "Check the details", description: "Selecting a route reveals its steps; a walking preference narrows the options." },
+    ],
+    decisions: [
+      { title: "Compare like with like", description: "Routes use consistent labels and measurements so differences can be understood quickly.", tradeoff: "Only a few criteria are shown initially to avoid overwhelming the comparison." },
+      { title: "Put preferences in context", description: "The less-walking option lives beside the route list, where its effect is immediately visible.", tradeoff: "A simple toggle is a starting point; actual accessibility needs require research." },
+      { title: "Reveal detail progressively", description: "Step-by-step directions appear after a route is chosen, not before.", tradeoff: "The map is illustrative and intentionally makes no real-time location claims." },
+    ],
+    testing: "I plan to observe whether riders can choose a route based on a stated preference and accurately explain the reason for their choice.",
+    testTasks: ["Find the fastest sample trip", "Choose the route with the least walking", "Explain the steps and transfers for the chosen route"],
+    boundaries: "Routes, travel times, and the map are illustrative examples. There is no live transit feed, geocoding, real-world navigation, or validated accessibility outcome.",
   },
 ];
 

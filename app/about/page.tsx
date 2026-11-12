@@ -4,10 +4,23 @@ import { ArrowLeft, ArrowUpRight } from "@/components/icons";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "About" };
-
 export default function About() {
   return <main id="main" className="about-page shell">
-    <Link className="back-link" href="/"><ArrowLeft size={17}/> Back to home</Link>
-    <div className="about-grid"><div><p className="eyebrow">A LITTLE ABOUT ME</p><h1>Equal parts<br/><em>logic & intuition.</em></h1></div><div className="about-copy"><p className="about-lead">I'm {site.name}, an engineering student at Virginia Tech with a growing focus on product design.</p><p>I’m interested in what happens when technical thinking meets clear, accessible, and genuinely useful digital experiences. My engineering background has taught me to approach messy problems methodically; photography has helped me pay attention to composition, context, and the story behind an image.</p><p>Now I’m exploring digital product design through independent concepts, including Clarity AI and TransitFlow. These projects are opportunities to practice user research, interaction design, and prototyping as I develop my portfolio.</p><p>I’m especially curious about AI interfaces, creative tools, mobility, and products that help people make better decisions.</p><div className="about-details"><div><span>CURRENTLY</span><strong>Virginia Tech · Engineering</strong></div><div><span>EXPLORING</span><strong>Product design · UX · AI</strong></div><div><span>LOOKING FOR</span><strong>Summer 2027 design internships</strong></div></div><Link className="text-link" href="/#work">See my work <ArrowUpRight size={18}/></Link></div></div>
+    <Link className="back-link" href="/#work"><ArrowLeft size={17}/> Selected work</Link>
+    <div className="about-layout">
+      <div className="about-heading"><p className="kicker">ABOUT / DAVEN CORRIELUS</p><h1>Engineer by training.<br/><em>Designer by curiosity.</em></h1></div>
+      <div className="about-copy">
+        <p className="about-lead">I like finding the simple idea inside a complicated problem.</p>
+        <p>I'm studying Industrial & Systems Engineering with a minor in Computer Science at Virginia Tech. My academic work has shaped how I think about constraints, systems, and the people who use them.</p>
+        <p>Photography sharpened my eye for composition and storytelling. Product design brings those interests together: understanding what matters to people, making deliberate interface decisions, and building something you can actually try.</p>
+        <p>I'm currently developing two independent projects: Clarity AI, an exploration of trustworthy AI research interactions, and TransitFlow, a clearer approach to comparing transit journeys. They're works in progress, with interactive prototypes and testing still ahead.</p>
+        <div className="about-info">
+          <div><span>EDUCATION</span><strong>Virginia Tech</strong><p>B.S. Industrial & Systems Engineering; Computer Science minor · Expected May 2028</p></div>
+          <div><span>INTERESTS</span><strong>AI products, information design, mobility</strong><p>Plus photography and tools that make creative work easier.</p></div>
+          <div><span>OPPORTUNITIES</span><strong>Summer 2027</strong><p>Product design and design engineering internships.</p></div>
+        </div>
+        <div className="about-actions"><a className="button-primary" href={site.resumeUrl} target="_blank" rel="noopener noreferrer">Read my résumé <ArrowUpRight size={17}/></a><a className="button-text" href={site.linkedin} target="_blank" rel="noopener noreferrer">Find me on LinkedIn <ArrowUpRight size={17}/></a></div>
+      </div>
+    </div>
   </main>;
 }

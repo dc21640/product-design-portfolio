@@ -1,10 +1,20 @@
-# Product Design Portfolio — Daven Corrielus
+# Daven Corrielus — Product Design Portfolio
 
-An editable, responsive Next.js App Router portfolio featuring two work-in-progress concept case studies: **Clarity AI** and **TransitFlow**.
+An editorial, responsive product design portfolio built with **Next.js 15**, **React 19**, TypeScript, and plain CSS. No UI template or additional component library is required.
+
+## Included pages
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Selected work and concise introduction |
+| `/projects/clarity-ai` | Clarity AI product design case study |
+| `/projects/transitflow` | TransitFlow product design case study |
+| `/lab/clarity-ai` | Clarity AI clickable prototype (scripted demo) |
+| `/lab/transitflow` | TransitFlow route-comparison prototype (sample data) |
+| `/about` | Background, interests, and experience |
+| `/resume.pdf` | The supplied resume, served from `public/resume.pdf` |
 
 ## Run locally
-
-Install Node.js 20.9+ (Node.js 22 recommended), then:
 
 ```bash
 npm install
@@ -13,31 +23,58 @@ npm run dev
 
 Open http://localhost:3000.
 
-To verify the project:
+Before deploying, confirm the production build:
 
 ```bash
-npm run lint
 npm run build
 ```
 
-## Customize
+## Update an EXISTING GitHub/Vercel portfolio
 
-- **Name, contact email, and links:** `lib/site.ts` → `site` object. Contact is intentionally disabled until a real email is supplied.
-- **Project content:** `lib/site.ts` → `projects` array. Keep only verified facts, activities, and outcomes.
+This ZIP is a complete source snapshot. **Do not delete or overwrite your existing `.git` directory.** Also keep any local environment files and uncommitted work you want to preserve.
+
+1. Extract the ZIP to a temporary folder.
+2. Open the extracted `product-design-portfolio` folder.
+3. Copy its `app/`, `components/`, `lib/`, `public/`, `package.json`, `next.config.ts`, `tsconfig.json`, and `README.md` **into your existing Git working directory**, replacing matching files. Keep your existing `.git`, `node_modules`, and `.env*` files.
+4. Run `npm install` and `npm run build` inside your existing repository.
+5. If the build succeeds, publish:
+
+```bash
+git status
+git add .
+git commit -m "Redesign product portfolio and refine case studies"
+git push origin main
+```
+
+Your existing Vercel project should redeploy automatically if connected to `main`.
+
+If your project differs from this version, review `git diff` **before** committing. You can undo an uncommitted change via Git rather than deleting the repository.
+
+## Editing content
+
+- **Name, email, LinkedIn, resume path:** `lib/site.ts`
+- **Project summaries, design decisions, testing plans:** `lib/site.ts`
 - **Homepage:** `app/page.tsx`
 - **About page:** `app/about/page.tsx`
-- **Case study template:** `app/projects/[slug]/page.tsx`
-- **Illustrative project mockups:** `components/project-preview.tsx`. These are built with HTML/CSS and clearly marked as concept previews.
-- **Colors, layout, and responsiveness:** `app/globals.css`.
+- **Case study layout:** `app/projects/[slug]/page.tsx`
+- **Design tokens and responsive styles:** `app/globals.css`
+- **Interactive prototypes:** `components/clarity-lab.tsx` and `components/transit-lab.tsx`
 
-## Deploy
+## Design principles
 
-Push this folder to a GitHub repository, import it into [Vercel](https://vercel.com/new), and select the Next.js framework preset. Add your real email to `lib/site.ts` first, and update any project descriptions to reflect completed work. Optional: add a custom domain in Vercel.
+- Warm neutral canvas, restrained green accent, dark high-contrast text.
+- Compact, content-first layouts without oversized empty spacers.
+- System typography for reliable loading; a restrained serif italic for emphasis.
+- Responsive content hierarchy, readable paragraph widths, and mobile navigation.
+- Visible keyboard focus states, semantic headings, link labels, and reduced-motion support.
+- Prototype labels are explicit: **no fabricated research, launched features, or live data**.
 
-## Integrity of portfolio claims
+## Transparency about the work
 
-The interface previews are **not** live apps. There are **no invented user studies, metrics, clients, usability results, or production releases**. As you conduct user interviews and design the actual products, replace the current process plans with documented evidence and finished designs.
+Clarity AI currently uses hard-coded example questions, responses, and source excerpts. It does not use live AI or upload files. TransitFlow uses illustrative journeys and a stylized map; it does not use real-time data or directions. The accompanying research tasks are planned, not completed or measured.
 
-## Notes
+To make either case study interview-ready, add actual user interviews, usability observations, iteration records, and real outcomes *after* completing them.
 
-This starter intentionally uses regular CSS rather than Tailwind so it can be customized quickly without additional styling configuration. No third-party image services or credentials are required.
+## About QA
+
+The source and responsive visual layout have been inspected with a browser-based render at desktop and mobile sizes, including 320–1440px viewport checks. The full Next.js production build could not be completed in this execution environment because the package installation did not complete; run `npm run build` on your Mac before pushing.

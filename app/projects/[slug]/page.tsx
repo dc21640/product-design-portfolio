@@ -1,22 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "@/components/icons";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@/components/icons";
 import { ProjectPreview } from "@/components/project-preview";
 import { getProject, projects } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
-
 export function generateStaticParams() { return projects.map(p => ({ slug: p.slug })); }
-export async function generateMetadata({params}: Props): Promise<Metadata> { const {slug}=await params; const p=getProject(slug); return {title: p?.title ?? "Project", description: p?.summary}; }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const p = getProject(slug);
+  return { title: p?.title ?? "Project", description: p?.summary };
+}
 
-export default async function ProjectPage({params}: Props) {
-  const {slug}=await params; const project=getProject(slug); if(!project) notFound();
-  const other=projects.find(p=>p.slug!==project.slug)!;
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
+  const project = getProject(slug);
+  if (!project) notFound();
+  const other = projects.find(p => p.slug !== project.slug)!;
+
   return <main id="main" className="case-page">
-    <div className="shell case-header"><Link className="back-link" href="/#work"><ArrowLeft size={17}/> All projects</Link><div className="case-heading"><p className="eyebrow">{project.eyebrow}</p><h1>{project.title}<span className="hero-period">.</span></h1><p className="case-subtitle">{project.subtitle}</p><div className="case-meta"><span><small>TYPE</small>Independent concept</span><span><small>TIMELINE</small>{project.year}</span><span><small>STATUS</small><b className="status-dot"/>{project.status}</span></div></div></div>
-    <div className="shell case-visual"><ProjectPreview slug={project.slug} large/></div>
-    <div className="shell case-body"><aside className="case-sidebar"><p className="eyebrow">PROJECT OVERVIEW</p><div className="case-sidebar-tags">{project.tags.map(t=><span key={t}>{t}</span>)}</div><div className="case-note"><strong>Transparency note</strong><p>This is an early-stage design exploration. The interface shown is a concept mockup, not a shipped product or validated result.</p></div></aside><div className="case-story"><div className="story-block"><span className="story-number">01 / CONTEXT</span><h2>The opportunity</h2><p>{project.summary}</p></div><div className="story-block"><span className="story-number">02 / PROBLEM TO EXPLORE</span><h2>The challenge</h2><p>{project.challenge}</p></div><div className="story-block"><span className="story-number">03 / EARLY DIRECTION</span><h2>What I'm exploring</h2><p>{project.direction}</p><ul className="focus-list">{project.focus.map(f=><li key={f}><span>↗</span>{f}</li>)}</ul></div><div className="story-block"><span className="story-number">04 / IN PROGRESS</span><h2>What's next</h2><p>The next step is to move beyond the visual concept and test the problem with real people. Planned activities:</p><ol className="next-steps">{project.nextSteps.map((s,i)=><li key={s}><span>{String(i+1).padStart(2,"0")}</span>{s}</li>)}</ol></div><div className="upcoming-panel"><span className="upcoming-kicker">COMING AS THE PROJECT DEVELOPS</span><h3>Research insights, iterations, and outcomes.</h3><p>This space will document real interviews, Figma explorations, usability feedback, engineering decisions, and lessons learned. No placeholder metrics or fabricated testimonials.</p></div></div></div>
-    <div className="shell next-project"><span className="eyebrow">UP NEXT</span><Link href={`/projects/${other.slug}`}><span><small>EXPLORE ANOTHER PROJECT</small><strong>{other.title}</strong></span><span className="next-arrow"><ArrowRight size={27}/></span></Link></div>
+    <div className="shell case-intro">
+      <Link className="back-link" href="/#work"><ArrowLeft size={17}/> All projects</Link>
+      <div className="case-hero-grid"><div><p className="kicker">{project.index} / {project.category.toUpperCase()}</p><h1>{project.title}<span className="title-stop">.</span></h1><p className="case-headline">{project.headline}</p></div><div className="case-hero-aside"><p>{project.summary}</p><span className="case-status"><span className="status-mark"/>Independent concept · In progress</span></div></div>
+      <dl className="case-facts"><div><dt>MY ROLE</dt><dd>{project.role}</dd></div><div><dt>TOOLS & METHODS</dt><dd>{project.tools}</dd></div><div><dt>TIMELINE</dt><dd>{project.timeline}</dd></div></dl>
+    </div>
+    <div className="shell case-feature"><ProjectPreview slug={project.slug} large/><div className="case-prototype-bar"><div><strong>Explore the interaction</strong><p>Try the clickable React prototype using clearly labeled sample content.</p></div><Link className="button-primary" href={`/lab/${project.slug}`}>Launch prototype <ArrowUpRight size={17}/></Link></div></div>
+    <div className="shell case-article-layout"><aside className="case-toc" aria-label="On this page"><span>IN THIS CASE STUDY</span><a href="#challenge">01 &nbsp; The challenge</a><a href="#flow">02 &nbsp; Experience flow</a><a href="#decisions">03 &nbsp; Design decisions</a><a href="#validation">04 &nbsp; What’s next</a></aside><div className="case-article">
+      <section className="case-section" id="challenge"><p className="kicker">01 / THE CHALLENGE</p><h2>Start with the right question.</h2><p className="case-question">{project.question}</p><p>{project.approach}</p><div className="case-context-note"><strong>Scope, not a claim.</strong><p>I'm exploring this problem through an independent concept. These are design hypotheses; I have not yet conducted formal interviews or measured outcomes.</p></div></section>
+      <section className="case-section" id="flow"><p className="kicker">02 / EXPERIENCE FLOW</p><h2>One clear task at a time.</h2><p>Instead of attempting an entire product, this prototype focuses on the smallest meaningful journey someone can try.</p><div className="experience-list">{project.experience.map(item => <div key={item.step} className="experience-item"><span>{item.step}</span><div><h3>{item.title}</h3><p>{item.description}</p></div></div>)}</div><Link className="inline-link" href={`/lab/${project.slug}`}>Try this flow <ArrowUpRight size={18}/></Link></section>
+      <section className="case-section" id="decisions"><p className="kicker">03 / DESIGN DECISIONS</p><h2>The reasoning behind the UI.</h2><p>Each decision is intended to solve a specific interaction problem, with a tradeoff worth testing.</p><div className="decision-list">{project.decisions.map((item,i) => <div className="decision" key={item.title}><span className="decision-number">0{i+1}</span><div><h3>{item.title}</h3><p>{item.description}</p><p className="decision-tradeoff"><strong>Tradeoff</strong> — {item.tradeoff}</p></div></div>)}</div></section>
+      <section className="case-section" id="validation"><p className="kicker">04 / VALIDATION & NEXT STEPS</p><h2>What I still need to learn.</h2><p>{project.testing}</p><div className="task-panel"><h3>Planned usability tasks</h3><ol>{project.testTasks.map(item => <li key={item}>{item}</li>)}</ol></div><div className="limitations"><span>PROTOTYPE LIMITATIONS</span><p>{project.boundaries}</p></div></section>
+    </div></div>
+    <div className="shell next-project"><p className="kicker">NEXT PROJECT</p><Link href={`/projects/${other.slug}`}><span><small>{other.category}</small><strong>{other.title}</strong></span><ArrowRight size={26}/></Link></div>
   </main>;
 }

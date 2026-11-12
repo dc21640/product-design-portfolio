@@ -15,7 +15,7 @@ export default function Home() {
         </div>
         <aside className="hero-note" aria-label="Current focus">
           <div className="hero-note-index">CURRENTLY EXPLORING / 2026</div>
-          <p>Useful AI interfaces.<br/>Clearer journeys.<br/>Better everyday tools.</p>
+          <p>Useful AI interfaces.<br/>Clearer journeys.<br/>Creative tools with purpose.</p>
           <div className="availability"><span className="availability-dot" aria-hidden="true"/>Open to Summer 2027 design opportunities</div>
         </aside>
       </div>
@@ -23,9 +23,9 @@ export default function Home() {
 
     <section className="work-section" id="work" aria-labelledby="work-title">
       <div className="shell">
-        <div className="section-intro"><div><p className="kicker">01 / THE WORK</p><h2 id="work-title">Selected projects<span className="title-stop">.</span></h2></div><p>Two independent products in development. Explore functional prototypes, design decisions, and the boundaries of what has been built.</p></div>
+        <div className="section-intro"><div><p className="kicker">01 / THE WORK</p><h2 id="work-title">Selected projects<span className="title-stop">.</span></h2></div><p>Four independent product experiments spanning AI, mobility and creative workflows. Explore the working apps and the reasoning behind them.</p></div>
         <div className="featured-projects">{projects.map(project => <ProjectCard key={project.slug} project={project}/>)}</div>
-        <p className="work-note"><span aria-hidden="true">ⓘ</span> Both projects are in progress. The applications work, but AI generation depends on server configuration and transit service data is illustrative. No fabricated user research or performance metrics.</p>
+        <p className="work-note"><span aria-hidden="true">ⓘ</span> All four projects are independent MVPs in progress. Prototype limitations are detailed in each case study; no invented research results or performance claims.</p>
       </div>
     </section>
 

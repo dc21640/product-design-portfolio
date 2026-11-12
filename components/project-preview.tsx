@@ -28,8 +28,26 @@ export function TransitPreview({ large = false }: { large?: boolean }) {
   </div>;
 }
 
+export function MusePreview({large=false}:{large?:boolean}) {
+  return <div className={`project-art art-muse ${large?'project-art-large':''}`} role="img" aria-label="Muse product interface showing a curated discovery gallery and spatial creative board">
+    <div className="muse-art-word" aria-hidden="true">muse<span>.</span></div>
+    <div className="muse-art-board" aria-hidden="true"><div className="muse-art-label">A SPACE FOR WHAT INSPIRES</div><div className="muse-art-paper"><img src="/demo-media/poster-02.jpg" alt=""/><span>01 / AFTER LIGHT</span></div><div className="muse-art-paper muse-art-offset"><img src="/demo-media/photo-coffee.jpg" alt=""/><span>02 / THE MORNING</span></div><div className="muse-art-tape">a quieter kind of discovery.</div></div><span className="art-label" aria-hidden="true">03 / VISUAL DISCOVERY</span>
+  </div>;
+}
+
+export function ExposurePreview({large=false}:{large?:boolean}) {
+  return <div className={`project-art art-exposure ${large?'project-art-large':''}`} role="img" aria-label="Exposure photography app interface with selected photos and a focused review image">
+    <div className="expo-art-browser" aria-hidden="true"><div className="expo-art-head"><strong>◧ &nbsp; exposure.</strong><span>EDITORIAL STUDIES &nbsp; / &nbsp; PRIVATE WORKSPACE</span></div><div className="expo-art-content"><div className="expo-art-small"><span>REVIEW / 001</span><h4>Make<br/>the cut.</h4><p>A quieter way to find the frame.</p><div>★ ★ ★ ★ ★</div></div><div className="expo-art-main-photo"><img src="/demo-media/photo-astronaut.jpg" alt=""/><span>FRAME_001.JPG &nbsp; / &nbsp; PICKED</span></div><div className="expo-art-film"><img src="/demo-media/photo-coffee.jpg" alt=""/><img src="/demo-media/photo-hubble.jpg" alt=""/><img src="/demo-media/photo-rocket.jpg" alt=""/></div></div></div><span className="art-label" aria-hidden="true">04 / PROFESSIONAL WORKFLOW</span>
+  </div>;
+}
+
 export function ProjectPreview({ slug, large = false }: { slug: Project["slug"]; large?: boolean }) {
-  return slug === "clarity-ai" ? <ClarityPreview large={large}/> : <TransitPreview large={large}/>;
+  switch(slug){
+    case 'clarity-ai':return <ClarityPreview large={large}/>;
+    case 'transitflow':return <TransitPreview large={large}/>;
+    case 'muse':return <MusePreview large={large}/>;
+    case 'exposure':return <ExposurePreview large={large}/>;
+  }
 }
 
 export function ProjectCard({ project }: { project: Project }) {

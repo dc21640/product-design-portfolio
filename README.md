@@ -1,6 +1,6 @@
-# Product design portfolio — Clarity AI + TransitFlow
+# Product design portfolio — Four functional MVPs
 
-A Next.js portfolio with two product projects. The most recent update replaces TransitFlow's static route diagram with a **real interactive Blacksburg map** based on [Blacksburg Transit's public GTFS schedule feed](https://drpt.virginia.gov/data/gtfs-feed-clearinghouse/). The visual interface is an independent portfolio project, not an official Blacksburg Transit product.
+A Next.js portfolio with **four independently designed product prototypes**: Clarity AI, TransitFlow, Muse, and Exposure. The most recent update replaces TransitFlow's static route diagram with a **real interactive Blacksburg map** based on [Blacksburg Transit's public GTFS schedule feed](https://drpt.virginia.gov/data/gtfs-feed-clearinghouse/). The visual interface is an independent portfolio project, not an official Blacksburg Transit product.
 
 ## What's included
 
@@ -11,6 +11,10 @@ A Next.js portfolio with two product projects. The most recent update replaces T
 | `/lab/clarity-ai` | Document-aware research MVP |
 | `/projects/transitflow` | TransitFlow case study |
 | `/lab/transitflow` | Geographic transit map, GTFS bus stops and schedules |
+| `/projects/muse` | Muse case study: visual collection → spatial synthesis |
+| `/lab/muse` | Working Muse discovery library and moodboard canvas |
+| `/projects/exposure` | Exposure case study: image editing → proofing → delivery |
+| `/lab/exposure` | Working photo culling, client-review simulation and ZIP export |
 | `/about` | About and resume link |
 | `/resume.pdf` | Original uploaded resume |
 
@@ -23,7 +27,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:3000/lab/transitflow>.
+Open <http://localhost:3000> or go directly to `/lab/muse` and `/lab/exposure`.
 
 Before deploying:
 
@@ -69,7 +73,7 @@ npm run build
 
 git status
 git add .
-git commit -m "Build real Blacksburg GTFS transit map and trip planner"
+git commit -m "Add Muse and Exposure product design applications"
 git push origin main
 ```
 
@@ -106,3 +110,52 @@ git push origin main
 ```
 
 If a fresh Vercel build still fails, open that deployment's **Build Logs**, copy the first error block, and inspect the Vercel project's repository, root-directory, and Node settings. Vercel uses the version pushed to GitHub, not downloaded ZIP files.
+
+
+## V6 — Muse and Exposure creative applications
+
+These are **interactive local-first MVPs**, not static visual mockups. They introduce **no new npm dependencies** beyond those already present in V5.1.
+
+### Muse — `/lab/muse`
+
+- Curated discovery gallery with category filters, keyword search and a direct **Save to board** action.
+- Two example moodboards with preview images, editable spatial canvas, repositionable image cards and notes.
+- Drag cards with mouse or touch. Focus a card and press **arrow keys** to nudge it; **Delete/Backspace** removes it from the board.
+- Create and rename boards, delete a board, and edit notes in the inspector.
+- Import JPG, PNG and other browser-supported image types; imports are resized into smaller JPEGs and stored **only in localStorage** with the board data. Browser storage limits apply.
+- Export a moodboard as structured JSON that includes references and layout positions. This is **not** a publicly hosted, collaborative or image-rendered export.
+
+### Exposure — `/lab/exposure`
+
+- Image-first asset library with filename search, filtering by selection/rating/approval, and sorting.
+- Import up to 40 images per import operation (each below 24 MB); original uploaded **file blobs live only in this browser's IndexedDB**. The server does not receive the imported photos.
+- Full-size Review mode with filmstrip, **Left/Right** navigation, **1–5** for ratings, and **P** to toggle a pick.
+- Local proofing preview: approve or request changes and attach comments. This is not a real external client account or shared live gallery.
+- Export a CSV manifest of all images and **a real ZIP** of selected original image files, plus a manifest and readme. This is assembled client-side using existing `fflate`.
+- Remove imported files individually or restore the entire sample session through Reset demo.
+
+### Demo-media attribution
+
+The `public/demo-media/` folder includes **six original editorial graphic compositions authored for this project** and a **small set of photography/texture demonstration assets derived from `scikit-image` sample data** (`astronaut`, `coffee`, `chelsea`/cat, `rocket`, `hubble_deep_field`, `camera`, `brick`, `grass`, `colorwheel`). These samples are for UI demonstration and **are not the portfolio owner's photography or claimed client deliverables**. Some dataset photographs originate from NASA. See scikit-image data documentation and each sample's credits for source details. Replace demo assets with images you own or are licensed to distribute before using either product commercially.
+
+### Privacy, limits, and access
+
+- No authentication, multi-device sync, cloud uploads, payment processing or live collaboration.
+- Reloading normally preserves the current browser's work. Incognito mode, clearing site data, or exceeding browser storage limits can remove saved content.
+- User images are never transmitted to the portfolio backend by Muse or Exposure. Exposure ZIP export happens in the browser and can consume memory with many large files.
+- The case studies clearly identify independent prototype work and plans for usability testing; none claim research participants or unverified performance gains.
+
+### Quick regression checklist
+
+After `npm install`, run `npm run lint`, `npm run test:gtfs`, `npm run test:creative`, and `npm run build`.
+
+In the browser, try:
+
+1. Muse → Discover → Save → choose a board → Studio → drag a card → add/edit a note → export board data.
+2. Muse → import a personal JPG → save it to a newly created board → reload the page and verify it remains.
+3. Exposure → Library → open a photo → rate it using `5` → press `P` to select → open Proofing and approve.
+4. Exposure → export selected images to ZIP and inspect the contents, then export the CSV manifest.
+5. Exposure → import a JPG/PNG → reload and verify the image remains; remove it afterwards.
+6. Check each application at phone width and keyboard-only operation.
+
+**Package verification:** The source was TSX-syntax checked; the new asset and route contract checks passed. Full TypeScript type-checking and a production Next.js build could not be completed in the packaging environment because npm package installation timed out. Run `npm run build` on your Mac before deployment and share the first failing build-log error if needed.

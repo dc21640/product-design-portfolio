@@ -17,7 +17,7 @@ export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
-  const other = projects.find(p => p.slug !== project.slug)!;
+  const other = projects[(projects.findIndex(p => p.slug === project.slug) + 1) % projects.length];
 
   return <main id="main" className="case-page">
     <div className="shell case-intro">

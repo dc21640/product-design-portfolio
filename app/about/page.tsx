@@ -13,7 +13,7 @@ export default function About() {
         <p className="about-lead">I like finding the simple idea inside a complicated problem.</p>
         <p>I'm studying Industrial & Systems Engineering with a minor in Computer Science at Virginia Tech. My academic work has shaped how I think about constraints, systems, and the people who use them.</p>
         <p>Photography sharpened my eye for composition and storytelling. Product design brings those interests together: understanding what matters to people, making deliberate interface decisions, and building something you can actually try.</p>
-        <p>I'm currently developing two independent projects: Clarity AI, an exploration of trustworthy AI research interactions, and TransitFlow, a clearer approach to comparing transit journeys. They're works in progress, with interactive prototypes and testing still ahead.</p>
+        <p>I'm currently developing four independent projects: Clarity AI, an exploration of trustworthy AI research interactions, and TransitFlow, a clearer approach to comparing transit journeys. They're works in progress, with interactive prototypes and testing still ahead.</p>
         <div className="about-info">
           <div><span>EDUCATION</span><strong>Virginia Tech</strong><p>B.S. Industrial & Systems Engineering; Computer Science minor · Expected May 2028</p></div>
           <div><span>INTERESTS</span><strong>AI products, information design, mobility</strong><p>Plus photography and tools that make creative work easier.</p></div>

@@ -8,7 +8,7 @@ export const site = {
 };
 
 export type Project = {
-  slug: "clarity-ai" | "transitflow";
+  slug: "clarity-ai" | "transitflow" | "muse" | "exposure";
   index: string;
   title: string;
   category: string;
@@ -96,6 +96,73 @@ export const projects: Project[] = [
     testTasks: ["Find Newman Library or another familiar stop on the map", "Plan a trip between two published stops for a selected date", "Explain whether a displayed bus departure is live or scheduled", "Recover when the feed is temporarily unavailable"],
     boundaries: "Built with OpenStreetMap and Blacksburg Transit’s public GTFS feed. This is a working scheduled transit explorer, not a certified navigation app. Its line overlays show representative route patterns; it does not include real-time bus tracking, delay predictions, pedestrian directions, multiple-transfer routing, or guaranteed accessibility. Agency data availability is outside this independent project's control.",
   }
+  ,{
+    slug: "muse",
+    index: "03",
+    title: "Muse",
+    category: "Creative tools · Visual discovery",
+    headline: "The space between inspiration and an idea.",
+    summary: "A visual discovery library and freeform moodboard studio for collecting, arranging and reflecting on inspiration.",
+    year: "2026",
+    status: "Independent MVP · In progress",
+    role: "Product design, interaction systems, front-end engineering",
+    tools: "React, Next.js, TypeScript, browser persistence, pointer interactions",
+    timeline: "2026 — ongoing",
+    question: "What if saving inspiration were just the beginning—not the end—of the creative process?",
+    approach: "Muse starts with a deliberately curated reference library and connects a familiar save-to-board workflow to an open spatial canvas. People can upload their own images, collect references, add ideas as notes, physically rearrange objects and export a structured board file.",
+    experience: [
+      {step:"01", title:"Discover a direction",description:"Filter a real collection by category or search visual tags. Imported images become private additions to the gallery."},
+      {step:"02", title:"Collect with intention",description:"Save a visual to a named board. Existing boards display image previews and item counts rather than a flat file list."},
+      {step:"03", title:"Compose in space",description:"Open Studio to drag images and notes into relationships. Keyboard arrow keys can move the selected item and board data can be exported."}
+    ],
+    decisions: [
+      {title:"Make imagery primary",description:"The discovery grid uses expressive imagery, compact metadata, and an action that appears where it is needed.",tradeoff:"Image-rich grids can become noisy; category filters, search and generous spacing keep choices manageable."},
+      {title:"Bridge collection and composition",description:"Saving a visual is not the end state. Boards become an editable surface with spatial grouping and annotation.",tradeoff:"An infinite canvas would add complexity, so the MVP uses a bounded, scrollable studio and clear drag affordances."},
+      {title:"Earn trust through simple storage",description:"Personal imports and board edits stay on the device, with a JSON export for portability.",tradeoff:"No account sync, public gallery links or live collaboration yet. The app says so rather than suggesting otherwise."}
+    ],
+    iterations: [
+      {before:"A single gallery with save buttons felt like a bookmarking app.",after:"A separate Studio turns saved material into a composition with movement and notes.",why:"Support actual synthesis after the discovery moment."},
+      {before:"Boards were named lists without a spatial identity.",after:"Image previews and item counts make collections immediately recognizable.",why:"Help users revisit the right idea without reading every title."},
+      {before:"Pointer interactions excluded keyboard-only users.",after:"Canvas cards can be selected and nudged with arrow keys, and removed from the keyboard.",why:"A productive tool should support different input methods."}
+    ],
+    testing: "Planned: observe whether new users can save a visual, create a board, arrange two images and a note, and export without instruction. No user testing has been conducted yet.",
+    testTasks: ["Find an image using a visual keyword", "Save it to a new board and add a note", "Rearrange two objects with keyboard or pointer", "Export the board and locate the downloaded file"],
+    boundaries: "This is a browser-local MVP. Sample visuals are authored graphic compositions and attributed demo photographs. Personal uploads are compressed and saved locally; storage quotas apply. There are no accounts, cloud sync, sharing permissions or AI-generated image search."
+  },
+  {
+    slug: "exposure",
+    index: "04",
+    title: "Exposure",
+    category: "Creative operations · Professional photo workflow",
+    headline: "A calmer way to get from shoot to select.",
+    summary: "An image-first editing and client proofing workflow with import, ratings, selections, approvals and downloadable delivery packages.",
+    year: "2026",
+    status: "Independent MVP · In progress",
+    role: "Product design, interaction design, front-end engineering",
+    tools: "React, TypeScript, IndexedDB, fflate ZIP export, accessible keyboard controls",
+    timeline: "2026 — ongoing",
+    question: "How might a photographer move through hundreds of images and client decisions without losing the thread?",
+    approach: "Exposure is organized around three distinct jobs: inspect the library, review and cull one frame at a time, then simulate a client's approve/request-changes workflow. Files are imported privately in the browser and selected images can be exported as an actual ZIP with a CSV manifest.",
+    experience: [
+      {step:"01", title:"Bring in the shoot",description:"Import JPG, PNG and other supported image files. A concise collection summary shows which images need attention."},
+      {step:"02", title:"Edit without interruption",description:"Use a focused photo viewer with keyboard navigation, star ratings, a pick shortcut and a filmstrip."},
+      {step:"03", title:"Proof, decide, deliver",description:"Simulate approvals and revision requests with comments, then export the selected originals and a review manifest."}
+    ],
+    decisions: [
+      {title:"Put the image first",description:"The review screen is intentionally dark and visually quiet so images—not interface chrome—hold attention.",tradeoff:"Compact dark controls require rigorous contrast, visible focus states and clearly labeled actions."},
+      {title:"Separate culling and client review",description:"A photographer's rating and pick decisions live in Review; approval and feedback belong in Proofing.",tradeoff:"The app has two deliberate modes instead of one screen full of mixed actions."},
+      {title:"Make export real",description:"A ZIP contains the selected images, a manifest and a readme; original uploads are stored in IndexedDB rather than sent to a server.",tradeoff:"Proofing is a local simulation, not a shareable client portal. Multi-device access and permission models require a backend."}
+    ],
+    iterations: [
+      {before:"A grid-only gallery encouraged repeated opening and closing of images.",after:"Focus mode offers full-size review, arrow-key navigation and filmstrip context.",why:"Reduce navigation overhead during repetitive culling decisions."},
+      {before:"A single 'favorite' state mixed photographer preferences and client feedback.",after:"Star ratings, picks, approvals and revision notes have distinct meanings.",why:"Separate different people's decisions into an understandable workflow."},
+      {before:"A static export button would overpromise delivery.",after:"Actual selected files and review metadata are packaged in the browser.",why:"Make a polished interaction complete the real job-to-be-done."}
+    ],
+    testing: "Planned: ask photographers to import a small shoot, choose three selects, then have a second tester act as client and request one change. No external client testing has yet taken place.",
+    testTasks: ["Import multiple photographs and locate a particular frame", "Rate images and select three with keyboard controls", "Approve one frame and request a revision", "Download the selected-image ZIP and confirm its contents"],
+    boundaries: "A local MVP with starter sample photos and original uploaded image files in browser IndexedDB. There is no account system, invitation link, backend synchronization or real client collaboration. The proofing mode illustrates the interaction, and decisions are not delivered to external clients."
+  }
+
 ];
 
 export function getProject(slug: string) {

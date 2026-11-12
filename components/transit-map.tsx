@@ -92,7 +92,7 @@ export function TransitMap(){
       itineraryLayers.current=L.layerGroup().addTo(m);
       locationLayer.current=L.layerGroup().addTo(m);
       map.current=m;setMapReady(true);
-      requestAnimation(()=>m.invalidateSize());
+      window.requestAnimationFrame(()=>m.invalidateSize());
     });
     return ()=>{mounted=false;if(map.current){map.current.remove();map.current=null;}leaflet.current=null;};
   },[]);

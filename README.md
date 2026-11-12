@@ -88,3 +88,21 @@ git push origin main
 ## Portfolio integrity
 
 TransitFlow is a demonstrable independent MVP. User interviews, real-world transit performance gains, accessibility guarantees, and live-tracking features must **not** be claimed without actual evidence. Its case study explains what was built and what remains unverified.
+
+## V5.1 deployment hotfix
+
+V5.1 corrects a client-side map initialization typo (`requestAnimation` → `window.requestAnimationFrame`). The incorrect name prevents TypeScript from passing the production build.
+
+For an existing GitHub-connected project on macOS, copy the updated **contents** into the existing local repository, preserve `.git` and `.env.local`, then run:
+
+```bash
+npm install
+npm run test:gtfs
+npm run lint
+npm run build
+git add .
+git commit -m "Fix TransitFlow map build error"
+git push origin main
+```
+
+If a fresh Vercel build still fails, open that deployment's **Build Logs**, copy the first error block, and inspect the Vercel project's repository, root-directory, and Node settings. Vercel uses the version pushed to GitHub, not downloaded ZIP files.

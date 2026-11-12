@@ -38,7 +38,7 @@ export function ProjectCard({ project }: { project: Project }) {
     <div className="featured-project-info">
       <div className="project-topline"><span>{project.index} / {project.category}</span><span>{project.year}</span></div>
       <div><p className="project-status"><span className="status-mark" aria-hidden="true"/> IN PROGRESS</p><h3>{project.title}</h3><p className="project-headline">{project.headline}</p><p className="project-summary">{project.summary}</p></div>
-      <div className="project-actions"><Link className="project-link" href={`/projects/${project.slug}`}>Read case study <ArrowUpRight size={19}/></Link><Link className="project-demo-link" href={`/lab/${project.slug}`}>Try prototype <ArrowUpRight size={17}/></Link></div>
+      <div className="project-actions"><Link className="project-link" href={`/projects/${project.slug}`}>Read case study <ArrowUpRight size={19}/></Link><Link className="project-demo-link" href={`/lab/${project.slug}`}>Launch app <ArrowUpRight size={17}/></Link></div>
     </div>
   </article>;
 }

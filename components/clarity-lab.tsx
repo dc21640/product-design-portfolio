@@ -1,70 +1,100 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import type { ResearchSource, Evidence } from '@/lib/clarity-engine';
 
-type Source = { id: string; title: string; type: string; detail: string; excerpt: string };
-type AnswerBlock = { text: string; source: string };
-const documents: Source[] = [
-  { id: "01", title: "Urban mobility notes", type: "Sample class notes", detail: "Research notebook / 4 pages", excerpt: "Perceived route convenience is affected by reliability, total journey time, walking effort, and how transfers are explained." },
-  { id: "02", title: "Interview guide", type: "Sample worksheet", detail: "Discovery plan / 2 pages", excerpt: "Ask participants to walk through a recent research decision. Focus on moments of uncertainty and why they trusted one piece of evidence over another." },
-  { id: "03", title: "Synthesis checklist", type: "Sample checklist", detail: "Analysis framework / 1 page", excerpt: "Write observed behavior separately from assumptions, attach evidence to each insight, and mark anything that still needs to be validated." },
+type Result={mode:'ai'|'evidence';answer:string;evidence:Evidence[];note:string};
+type Saved={id:string;question:string;answer:string;mode:string;date:string};
+const examples: ResearchSource[]=[
+ {id:'S1',title:'Interview field notes · sample',body:'Verification was difficult: a student described switching between three tabs while verifying information for an assignment. They were unsure which sentence in an AI response came from which source. The participant wanted a way to keep the supporting passage visible while reading the answer, with a clear citation. This is a fictional sample prepared solely for an interface demonstration.'},
+ {id:'S2',title:'Research principles · sample',body:'Interview recent task behavior rather than hypothetical product preferences. Keep observation and assumption separate. Use evidence directly beside each research claim. When a conclusion is uncertain, label it as a hypothesis. This is illustrative sample content, not a published reference.'},
+ {id:'S3',title:'Information architecture · sample',body:'Make it simple to return to the original document without losing the research question. Source previews should preserve the selected citation and keep important passages easy to scan. This is illustrative sample content, not a published reference.'},
 ];
-const prompts: { title: string; eyebrow: string; blocks: AnswerBlock[]; takeaway: string }[] = [
-  { title: "How do I evaluate trust?", eyebrow: "EVIDENCE & CONFIDENCE", blocks: [
-    { text: "Start by making the connection between a claim and its supporting evidence visible. The synthesis checklist recommends separating observations from assumptions.", source: "03" },
-    { text: "For discovery interviews, ask people to describe a real moment of uncertainty and what made a source credible to them.", source: "02" },
-  ], takeaway: "Show the source next to each claim, and preserve uncertainty instead of making every answer sound certain." },
-  { title: "What makes route decisions hard?", eyebrow: "COMPLEX CHOICES", blocks: [
-    { text: "The sample notes describe route choice as a balance of perceived reliability, travel time, walking effort and understandable transfers.", source: "01" },
-    { text: "These notes are a working hypothesis. They still need user interviews and behavioral validation.", source: "03" },
-  ], takeaway: "A helpful comparison should surface the tradeoffs, not only the shortest route." },
-  { title: "What should I research first?", eyebrow: "DISCOVERY PLAN", blocks: [
-    { text: "Begin with participants' recent research tasks. Ask them to reconstruct the questions, tools and moments where they needed to verify something.", source: "02" },
-    { text: "Capture direct observations and assumptions separately so later synthesis remains traceable.", source: "03" },
-  ], takeaway: "Observe how people check answers before deciding which AI features to build." },
-];
-
-export function ClarityLab() {
-  const [question, setQuestion] = useState(0);
-  const [source, setSource] = useState<string>("03");
-  const [saved, setSaved] = useState<number[]>([]);
-  const [view, setView] = useState<"research"|"saved">("research");
-  const [query, setQuery] = useState("");
-  const answer = prompts[question];
-  const activeDocument = documents.find(d => d.id === source) ?? documents[0];
-  const visibleDocuments = documents.filter(doc => `${doc.title} ${doc.type}`.toLowerCase().includes(query.toLowerCase()));
-  const isSaved = saved.includes(question);
-  const relevantSources = Array.from(new Set(answer.blocks.map(b=>b.source)));
-
-  function chooseQuestion(index: number) { setQuestion(index); setSource(prompts[index].blocks[0].source); setView("research"); }
-  function toggleSave() { setSaved(prev=>prev.includes(question)?prev.filter(i=>i!==question):[...prev,question]); }
-
-  return <div className="ca-app">
-    <aside className="ca-rail" aria-label="Clarity workspace">
-      <div className="ca-logo"><span className="ca-logo-symbol" aria-hidden="true">✳</span> clarity<span>.</span></div>
-      <div className="ca-workspace-label">DEMO WORKSPACE</div>
-      <nav className="ca-rail-nav" aria-label="Workspace sections">
-        <button type="button" className={view==="research"?"active":""} aria-current={view==="research"?"page":undefined} onClick={()=>setView("research")}><span aria-hidden="true">◫</span> Research space</button>
-        <button type="button" className={view==="saved"?"active":""} aria-current={view==="saved"?"page":undefined} onClick={()=>setView("saved")}><span aria-hidden="true">▤</span> Saved insights <b>{saved.length}</b></button>
-      </nav>
-      <div className="ca-rail-note"><span className="ca-note-dot"/> Prototype mode<br/><small>Scripted content, no live AI.</small></div>
-    </aside>
-    <section className="ca-main" aria-label="Research assistant">
-      <div className="ca-topbar"><span>Workspace <span aria-hidden="true">/</span> {view==="research"?"Evidence explorer":"Saved insights"}</span><span className="ca-topbar-demo">INTERACTIVE DEMO</span></div>
-      {view==="research" ? <div className="ca-work">
-        <div className="ca-heading"><p>RESEARCH, WITH RECEIPTS</p><h2>Stay close to <em>the source.</em></h2><span>Answers are more useful when you can check their reasoning.</span></div>
-        <div className="ca-subheading">CHOOSE A RESEARCH QUESTION</div>
-        <div className="ca-prompts" role="group" aria-label="Sample questions">{prompts.map((p,index)=><button type="button" className={question===index?"active":""} key={p.title} aria-pressed={question===index} onClick={()=>chooseQuestion(index)}>{p.title}<span aria-hidden="true">↗</span></button>)}</div>
-        <div className="ca-answer"><div className="ca-answer-top"><div className="ca-answer-marker"><span aria-hidden="true">✳</span><div><small>SCRIPTED EXAMPLE RESPONSE</small><strong>{answer.eyebrow}</strong></div></div><button type="button" aria-pressed={isSaved} className={`ca-save ${isSaved?"saved":""}`} onClick={toggleSave}>{isSaved?"✓ Saved":"+ Save insight"}</button></div>
-          <div className="ca-answer-text">{answer.blocks.map((block,index)=><p key={index}>{block.text} <button type="button" className={`ca-inline-cite ${source===block.source?"active":""}`} aria-label={`Inspect source ${block.source} supporting this statement`} aria-pressed={source===block.source} onClick={()=>setSource(block.source)}>[{block.source}]</button></p>)}</div>
-          <div className="ca-takeaway"><span>DESIGN TAKEAWAY</span><p>{answer.takeaway}</p></div>
-          <div className="ca-sources-used"><span>{relevantSources.length} supporting sample sources</span><span>Click a citation to inspect evidence →</span></div>
-        </div>
-      </div> : <div className="ca-work ca-saved-view"><p className="ca-subheading">PERSONAL COLLECTION · DEMO ONLY</p><h2>Saved insights</h2>{saved.length ? <div className="ca-saved-list">{saved.map(index=><button type="button" key={index} onClick={()=>chooseQuestion(index)}><span>RESEARCH NOTE {String(index+1).padStart(2,"0")}</span><strong>{prompts[index].title}</strong><small>Open note ↗</small></button>)}</div> : <div className="ca-empty"><strong>Nothing saved yet.</strong><p>Choose a question in the research space, then select “Save insight” to collect it here.</p><button type="button" onClick={()=>setView("research")}>Explore questions →</button></div>}<p className="ca-saved-note">Saved items are temporary in this prototype and reset when the page reloads.</p></div>}
-    </section>
-    <aside className="ca-evidence" aria-label="Evidence panel"><div className="ca-evidence-header"><div><p>THE SOURCE LIBRARY</p><h3>Trace the evidence</h3></div><span>03 FILES</span></div><label htmlFor="ca-source-search" className="ca-search-label">Find a document</label><input id="ca-source-search" type="search" placeholder="Search sample sources" value={query} onChange={e=>setQuery(e.target.value)}/>
-      <div className="ca-sources">{visibleDocuments.length?visibleDocuments.map(doc=><button type="button" key={doc.id} className={`ca-document ${source===doc.id?"open":""}`} onClick={()=>setSource(doc.id)} aria-pressed={source===doc.id}><span className="ca-doc-icon" aria-hidden="true">▤</span><span className="ca-doc-heading"><strong>{doc.title}</strong><small>{doc.type}</small></span><span className="ca-doc-arrow" aria-hidden="true">{source===doc.id?"−":"+"}</span></button>):<p className="ca-no-results">No sample sources match your search.</p>}</div>
-      <div className="ca-excerpt" aria-live="polite"><div className="ca-excerpt-meta"><span>SELECTED EVIDENCE · {activeDocument.id}</span><span>{activeDocument.detail}</span></div><h4>{activeDocument.title}</h4><blockquote>“{activeDocument.excerpt}”</blockquote><p>Illustrative text written for this design exercise—not a published source.</p></div>
-    </aside>
-  </div>;
+const suggested=['What made verification difficult?', 'How should a citation work?', 'What should we test with students?'];
+function makeId(){return 'S'+Math.random().toString(36).slice(2,9).toUpperCase();}
+export function ClarityLab(){
+ const [docs,setDocs]=useState<ResearchSource[]>(examples);
+ const [question,setQuestion]=useState('What made verification difficult?');
+ const [answer,setAnswer]=useState<Result|null>(null);
+ const [activeSource,setActiveSource]=useState('S1');
+ const [saved,setSaved]=useState<Saved[]>([]);
+ const [view,setView]=useState<'ask'|'saved'>('ask');
+ const [adding,setAdding]=useState(false);
+ const [draftTitle,setDraftTitle]=useState('');
+ const [draftBody,setDraftBody]=useState('');
+ const [search,setSearch]=useState('');
+ const [loading,setLoading]=useState(false);
+ const [error,setError]=useState('');
+ const [loaded,setLoaded]=useState(false);
+ const resultRef=useRef<HTMLDivElement>(null);
+ const sourcePanelRef=useRef<HTMLElement>(null);
+ const sourceInputId=useId();
+ useEffect(()=>{
+   try{
+    const storedDocs=localStorage.getItem('clarity-sources-v1');
+    const storedSaved=localStorage.getItem('clarity-saved-v1');
+    if(storedDocs){ const value=JSON.parse(storedDocs); if(Array.isArray(value)&&value.length<=8&&value.every(d=>typeof d.id==='string'&&typeof d.body==='string'&&typeof d.title==='string'))setDocs(value); }
+    if(storedSaved){const value=JSON.parse(storedSaved);if(Array.isArray(value))setSaved(value.slice(0,30));}
+   }catch{/* Keep starter examples if storage is unavailable. */}
+   setLoaded(true);
+ },[]);
+ useEffect(()=>{if(loaded){try{localStorage.setItem('clarity-sources-v1',JSON.stringify(docs));}catch{setError('Browser storage is full. Documents may not persist after refresh.');}}},[docs,loaded]);
+ useEffect(()=>{if(loaded){try{localStorage.setItem('clarity-saved-v1',JSON.stringify(saved));}catch{/* Storage may be unavailable. */}}},[saved,loaded]);
+ const current=docs.find(d=>d.id===activeSource)||docs[0];
+ const isExample=(doc:ResearchSource)=>doc.title.endsWith('· sample');
+ const shown=docs.filter(d=>(d.title+' '+d.body).toLowerCase().includes(search.toLowerCase()));
+ const savedAnswer=!!answer&&saved.some(s=>s.question===question&&s.answer===answer.answer);
+ function addSource(){
+  setError('');
+  if(docs.length>=8) return setError('This MVP supports up to 8 sources. Remove one to add another.');
+  if(!draftTitle.trim()||draftBody.trim().length<30||draftBody.length>30000) return setError('Add a title and 30–30,000 characters of text.');
+  const id=makeId();setDocs(prev=>[...prev,{id,title:draftTitle.trim().slice(0,120),body:draftBody.trim()}]);setActiveSource(id);setDraftTitle('');setDraftBody('');setAdding(false);setAnswer(null);
+ }
+ async function importFiles(event:ChangeEvent<HTMLInputElement>){
+  setError('');const files=Array.from(event.target.files||[]);
+  if(files.length+docs.length>8){setError('The maximum is 8 sources. Remove some or choose fewer files.');event.target.value='';return;}
+  const newDocs:ResearchSource[]=[];
+  for(const file of files){
+   if(!/\.(txt|md|csv|json)$/i.test(file.name)){setError('This MVP imports TXT, MD, CSV and JSON files. Paste PDF text into a source for now.');continue;}
+   if(file.size>30000){setError('Each text file must be under 30 KB for this MVP.');continue;}
+   const body=await file.text();
+   if(body.trim().length>=30){newDocs.push({id:makeId(),title:file.name.slice(0,120),body:body.trim()});}else setError('A selected file was too short.');
+  }
+  if(newDocs.length){setDocs(prev=>[...prev,...newDocs]);setActiveSource(newDocs[0].id);setAnswer(null);}
+  event.target.value='';
+ }
+ async function ask(event?:FormEvent){event?.preventDefault();setView('ask');setError('');if(!question.trim()||docs.length===0){setError('Enter a question and add at least one source.');return;}
+  setLoading(true);setAnswer(null);
+  try{
+   const response=await fetch('/api/clarity',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question:question.trim(),sources:docs})});
+   const result=await response.json();
+   if(!response.ok)throw Error(result.error||'Could not answer this question.');
+   setAnswer(result);if(result.evidence?.length)setActiveSource(result.evidence[0].sourceId);
+   requestAnimationFrame(()=>resultRef.current?.focus());
+  }catch(err){setError(err instanceof Error?err.message:'Something went wrong. Try again.');}
+  finally{setLoading(false);}
+ }
+ function saveCurrent(){if(!answer)return;setSaved(prev=>prev.some(s=>s.question===question&&s.answer===answer.answer)?prev.filter(s=>!(s.question===question&&s.answer===answer.answer)):[{id:makeId(),question,answer:answer.answer,mode:answer.mode,date:new Date().toLocaleDateString()},...prev].slice(0,30));}
+ function inspectSource(id:string){setActiveSource(id);if(typeof window!=='undefined'&&window.matchMedia('(max-width: 1100px)').matches){sourcePanelRef.current?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}}
+ function answerText(text:string){return text.split(/(\[[A-Za-z0-9_-]+\])/g).map((part,index)=>{const match=part.match(/^\[([A-Za-z0-9_-]+)\]$/);return match&&answer?.evidence.some(e=>e.sourceId===match[1])?<button className="cp-inline-citation" key={index} type="button" onClick={()=>inspectSource(match[1])} aria-label={`Inspect supporting source ${match[1]}`}>{part}</button>:part;});}
+ function removeSource(id:string){setDocs(prev=>prev.filter(d=>d.id!==id));if(activeSource===id)setActiveSource(docs.find(d=>d.id!==id)?.id||'');setAnswer(null);}
+ return <div className="clarity-product" aria-label="Clarity AI research workspace">
+  <aside className="cp-sidebar"><div className="cp-logo"><span className="cp-symbol">✳</span> Clarity <span>AI</span></div><p className="cp-side-caption">YOUR RESEARCH WORKSPACE</p><nav aria-label="Clarity navigation" className="cp-nav"><button className={view==='ask'?'is-active':''} aria-current={view==='ask'?'page':undefined} onClick={()=>setView('ask')}>◫ <span>Ask a question</span></button><button className={view==='saved'?'is-active':''} aria-current={view==='saved'?'page':undefined} onClick={()=>setView('saved')}>▤ <span>Saved answers</span><span className="cp-count">{saved.length}</span></button></nav><div className="cp-privacy">Private by default <span>Sources and saved answers stay in this browser. Queries are sent to this site’s server when you ask; if Claude is configured, selected excerpts are sent to Anthropic.</span></div></aside>
+  <section className="cp-work" aria-label="Research answers">
+   {view==='ask'?<>
+    <div className="cp-work-top"><div><p className="cp-eyebrow">A MORE THOUGHTFUL WAY TO RESEARCH</p><h2>Ask better questions.<br/><em>Follow the evidence.</em></h2></div><span className="cp-mode-tag">WORKING MVP</span></div>
+    <p className="cp-lede">Add a few sources, ask a question, and inspect the passages behind the answer. No mystery citations.</p>
+    <div className="cp-prompt-chips" aria-label="Example questions">{suggested.map(p=><button key={p} type="button" onClick={()=>setQuestion(p)}>{p}<span aria-hidden>↗</span></button>)}</div>
+    <form className="cp-compose" onSubmit={ask}><label htmlFor="clarity-question">Your research question</label><textarea id="clarity-question" value={question} onChange={e=>setQuestion(e.target.value)} maxLength={1200} rows={3} placeholder="What can the sources tell me about…?"/><div className="cp-compose-footer"><span>{docs.length} source{docs.length!==1?'s':''} attached · {question.length}/1200</span><button className="cp-primary" disabled={loading||!question.trim()||!docs.length} type="submit">{loading?'Finding evidence…':'Analyze sources'} <span aria-hidden>↗</span></button></div></form>
+    {error&&<p className="cp-error" role="alert">{error}</p>}
+    <div className="cp-results" ref={resultRef} tabIndex={-1} aria-live="polite">{answer?<><div className="cp-results-header"><div><p className="cp-eyebrow">{answer.mode==='ai'?'CLAUDE-ASSISTED SYNTHESIS':'SOURCE SEARCH · NO MODEL KEY REQUIRED'}</p><h3>{answer.mode==='ai'?'Research synthesis':'Relevant source excerpts'}</h3></div><button type="button" onClick={saveCurrent} aria-pressed={savedAnswer} className="cp-save">{savedAnswer?'✓ Saved':'+ Save answer'}</button></div><p className="cp-answer-copy">{answerText(answer.answer)}</p><p className="cp-answer-notice">{answer.note}</p>{answer.evidence.length>0&&<><div className="cp-evidence-label">OPEN THE EVIDENCE</div><div className="cp-evidence-row">{answer.evidence.map((ev,index)=><button className={activeSource===ev.sourceId?'is-active':''} type="button" key={`${ev.sourceId}-${index}`} onClick={()=>inspectSource(ev.sourceId)}><span>[{ev.sourceId}] {ev.title}</span><small>{ev.quote.slice(0,126)}{ev.quote.length>126?'…':''}</small></button>)}</div></>}</>:<div className="cp-placeholder"><span aria-hidden>✳</span><h3>Start with the sources.</h3><p>Your research answer will appear here, with evidence you can inspect on the right.</p></div>}</div>
+   </>:<div className="cp-saved-view"><p className="cp-eyebrow">PERSONAL COLLECTION · STORED IN THIS BROWSER</p><h2>Saved research</h2><p>Revisit your questions and copy useful notes to another tool.</p>{saved.length===0?<div className="cp-placeholder"><h3>Nothing saved yet.</h3><p>Ask a question, then select “Save answer”.</p><button className="cp-primary" onClick={()=>setView('ask')}>Ask your first question ↗</button></div>:<div className="cp-saved-items">{saved.map(s=><article key={s.id}><small>{s.mode==='ai'?'AI-assisted':'Source search'} · {s.date}</small><h3>{s.question}</h3><p>{s.answer}</p><div><button onClick={()=>{setQuestion(s.question);setView('ask');}}>Ask again ↗</button><button onClick={()=>setSaved(prev=>prev.filter(x=>x.id!==s.id))}>Remove</button></div></article>)}</div>}</div>}
+  </section>
+  <aside ref={sourcePanelRef} className="cp-source-panel" aria-label="Sources library"><div className="cp-panel-top"><p className="cp-eyebrow">EVIDENCE LIBRARY</p><h3>Your sources <span>{docs.length}/8</span></h3><p>Inspect source text at any time.</p></div><div className="cp-source-actions"><label className="cp-upload">+ Import text files<input id={sourceInputId} type="file" accept=".txt,.md,.csv,.json,text/plain" multiple onChange={importFiles}/></label><button type="button" onClick={()=>setAdding(!adding)} aria-expanded={adding}>+ Paste source</button></div>
+  {adding&&<div className="cp-add-source"><label htmlFor="cp-title">Source title</label><input id="cp-title" value={draftTitle} maxLength={120} onChange={e=>setDraftTitle(e.target.value)} placeholder="Article notes"/><label htmlFor="cp-body">Source text</label><textarea id="cp-body" value={draftBody} onChange={e=>setDraftBody(e.target.value)} rows={5} maxLength={30000} placeholder="Paste your notes or article text…"/><button type="button" onClick={addSource}>Add source</button></div>}
+  {error&&<p className="cp-panel-error" role="alert">{error}</p>}
+  <label className="cp-search-label" htmlFor="cp-search">Find a source</label><input id="cp-search" type="search" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Filter documents…"/><div className="cp-source-list">{shown.map(doc=><div className={`cp-source ${activeSource===doc.id?'is-active':''}`} key={doc.id}><button type="button" onClick={()=>setActiveSource(doc.id)} aria-pressed={activeSource===doc.id}><span className="cp-source-icon" aria-hidden>▤</span><span><strong>{doc.title}</strong><small>{isExample(doc)?'Illustrative sample':'Your document'} · {doc.body.length.toLocaleString()} chars</small></span></button><button type="button" className="cp-remove" aria-label={`Remove ${doc.title}`} title="Remove source" onClick={()=>removeSource(doc.id)}>×</button></div>)}{shown.length===0&&<p className="cp-empty-search">No matching sources.</p>}</div>
+  {current?<div className="cp-source-excerpt"><p className="cp-eyebrow">SELECTED SOURCE · {current.id}</p><h4>{current.title}</h4><p>{current.body.slice(0,1600)}{current.body.length>1600?'…':''}</p>{isExample(current)&&<small>Fictional content provided to demonstrate the UI.</small>}</div>:<p className="cp-empty-search">Add a source to begin.</p>}
+  </aside>
+ </div>;
 }

@@ -23,9 +23,9 @@ export default function Home() {
 
     <section className="work-section" id="work" aria-labelledby="work-title">
       <div className="shell">
-        <div className="section-intro"><div><p className="kicker">01 / THE WORK</p><h2 id="work-title">Selected projects<span className="title-stop">.</span></h2></div><p>Two independent design explorations. Each includes a working interaction prototype and a transparent account of what’s still being developed.</p></div>
+        <div className="section-intro"><div><p className="kicker">01 / THE WORK</p><h2 id="work-title">Selected projects<span className="title-stop">.</span></h2></div><p>Two independent products in development. Explore functional prototypes, design decisions, and the boundaries of what has been built.</p></div>
         <div className="featured-projects">{projects.map(project => <ProjectCard key={project.slug} project={project}/>)}</div>
-        <p className="work-note"><span aria-hidden="true">ⓘ</span> Both projects are in progress. Prototype interactions are real; sample content and outcomes are not presented as user research or shipped products.</p>
+        <p className="work-note"><span aria-hidden="true">ⓘ</span> Both projects are in progress. The applications work, but AI generation depends on server configuration and transit service data is illustrative. No fabricated user research or performance metrics.</p>
       </div>
     </section>
 

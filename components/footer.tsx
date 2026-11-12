@@ -11,8 +11,7 @@ export function Footer() {
         <a className="footer-email" href={`mailto:${site.email}`}>{site.email}<ArrowUpRight size={23}/></a>
       </div>
       <div className="footer-aside">
-        <span>Elsewhere</span>
-        <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16}/></a>
+        <span>Explore</span>
         <a href={site.resumeUrl} target="_blank" rel="noopener noreferrer">Résumé (PDF) <ArrowUpRight size={16}/></a>
         <Link href="/about">About me <ArrowUpRight size={16}/></Link>
       </div>

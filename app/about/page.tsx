@@ -19,7 +19,7 @@ export default function About() {
           <div><span>INTERESTS</span><strong>AI products, information design, mobility</strong><p>Plus photography and tools that make creative work easier.</p></div>
           <div><span>OPPORTUNITIES</span><strong>Summer 2027</strong><p>Product design and design engineering internships.</p></div>
         </div>
-        <div className="about-actions"><a className="button-primary" href={site.resumeUrl} target="_blank" rel="noopener noreferrer">Read my résumé <ArrowUpRight size={17}/></a><a className="button-text" href={site.linkedin} target="_blank" rel="noopener noreferrer">Find me on LinkedIn <ArrowUpRight size={17}/></a></div>
+        <div className="about-actions"><a className="button-primary" href={site.resumeUrl} target="_blank" rel="noopener noreferrer">Read my résumé <ArrowUpRight size={17}/></a><a className="button-text" href={`mailto:${site.email}`}>Get in touch <ArrowUpRight size={17}/></a></div>
       </div>
     </div>
   </main>;

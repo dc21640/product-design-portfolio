@@ -52,7 +52,7 @@ If your project differs from this version, review `git diff` **before** committi
 
 ## Editing content
 
-- **Name, email, LinkedIn, resume path:** `lib/site.ts`
+- **Name, email, resume path:** `lib/site.ts`
 - **Project summaries, design decisions, testing plans:** `lib/site.ts`
 - **Homepage:** `app/page.tsx`
 - **About page:** `app/about/page.tsx`
@@ -78,3 +78,30 @@ To make either case study interview-ready, add actual user interviews, usability
 ## About QA
 
 The source and responsive visual layout have been inspected with a browser-based render at desktop and mobile sizes, including 320–1440px viewport checks. The full Next.js production build could not be completed in this execution environment because the package installation did not complete; run `npm run build` on your Mac before pushing.
+
+
+## November 2026 interaction and color update
+
+This edition uses a restrained site-wide neutral palette and distinctive project colors:
+
+- **Clarity AI (violet):** interactive sample research questions, inline claim-level citations, selected evidence excerpts, searchable document list, and a Saved insights view. All answer text and sources are examples; there is no live AI call, backend, account, or lasting storage.
+- **TransitFlow (blue):** six real Blacksburg-area origins and official BT corridor names, service-window examples, a dynamic route schematic and step-by-step sample trip guidance. **Not** a real-time trip planner, official navigation map, accessibility assessment, or timetable. Some scenarios deliberately show “No matching published example” rather than inventing service.
+- **Navigation:** the website does not include a LinkedIn link. The previously supplied resume PDF is included unchanged at `/resume.pdf` and may contain its own contact information.
+- **Case studies:** each includes a documented design-critique iteration (before → after → rationale). These are not presented as findings from user testing.
+
+Transit reference: [Blacksburg Transit schedules (effective August 2026)](https://ridebt.org/schedules). Follow the official source for actual trips and changes in service. Route illustrations are **schematic corridor diagrams**, not geographical polylines or verified stop-level instructions.
+
+### Updating your live Vercel site
+
+Unzip this release. Copy the **contents** of `product-design-portfolio/` into the **existing** local project folder that is connected to `dc21640/product-design-portfolio`. Preserve its hidden `.git/` directory, and do not copy into a nested `product-design-portfolio/product-design-portfolio` folder. Then:
+
+```bash
+npm install
+npm run build
+git status
+git add .
+git commit -m "Polish project interfaces and add sourced transit routes"
+git push origin main
+```
+
+Your connected Vercel project should then start a new deployment. Check that the latest deployment is **Ready**, then hard refresh the live URL.

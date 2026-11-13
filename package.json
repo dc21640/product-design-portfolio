@@ -1,22 +1,29 @@
 {
   "name": "product-design-portfolio",
-  "version": "0.1.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:gtfs": "node tests/gtfs-fixture.cjs",
+    "test:creative": "node tests/creative-checks.cjs",
+    "test:design": "node tests/design-qa.cjs",
+    "test:case-study": "node tests/case-study-quality.cjs"
   },
   "dependencies": {
-    "next": "^15.5.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "next": "15.5.29",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "leaflet": "^1.9.4",
+    "fflate": "^0.8.2"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "@types/leaflet": "^1.9.17"
   }
 }

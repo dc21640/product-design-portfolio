@@ -9,7 +9,6 @@ export const site = {
 
 export type Project = {
   slug: "clarity-ai" | "transitflow" | "muse" | "exposure";
-  index: string;
   title: string;
   category: string;
   headline: string;
@@ -21,7 +20,7 @@ export type Project = {
   timeline: string;
   question: string;
   approach: string;
-  experience: { step: string; title: string; description: string }[];
+  experience: { title: string; description: string }[];
   decisions: { title: string; description: string; tradeoff: string }[];
   iterations: { before: string; after: string; why: string }[];
   testing: string;
@@ -32,7 +31,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "clarity-ai",
-    index: "01",
+
     title: "Clarity AI",
     category: "AI tools · Web experience",
     headline: "Research with the evidence in view.",
@@ -45,9 +44,9 @@ export const projects: Project[] = [
     question: "How might a research tool help students move from an answer to the evidence behind it, without losing their place?",
     approach: "The first working MVP supports importing or pasting text sources, asking a question, reading evidence snippets, and saving an answer in the browser. An optional server-side Claude integration synthesizes source-grounded responses.",
     experience: [
-      { step: "01", title: "Choose a question", description: "Example questions help users begin; a free-form input accepts their own research questions." },
-      { step: "02", title: "Read the response", description: "An evidence-search mode works without an API key; optional Claude synthesis uses source IDs and excerpt retrieval." },
-      { step: "03", title: "Inspect the evidence", description: "Selecting an evidence card reveals the matching document without leaving the workspace." },
+      { title: "Choose a question", description: "Example questions help users begin; a free-form input accepts their own research questions." },
+      { title: "Read the response", description: "An evidence-search mode works without an API key; optional Claude synthesis uses source IDs and excerpt retrieval." },
+      { title: "Inspect the evidence", description: "Selecting an evidence card reveals the matching document without leaving the workspace." },
     ],
     decisions: [
       { title: "Keep context on screen", description: "An evidence panel sits alongside the response, reducing the need to switch between tabs.", tradeoff: "Three columns add density, so the layout collapses on narrower screens." },
@@ -65,7 +64,7 @@ export const projects: Project[] = [
   },
   {
     slug: "transitflow",
-    index: "02",
+
     title: "TransitFlow",
     category: "Mobility · Web experience",
     headline: "A useful map, not just another transit diagram.",
@@ -78,9 +77,9 @@ export const projects: Project[] = [
     question: "How might we make local bus service easier to find, interpret, and plan around—without confusing scheduled data with live predictions?",
     approach: "I replaced a curated route-example screen with an interactive street map fed by Blacksburg Transit’s published GTFS. Routes use published geographic shapes, stops are searchable by name, and the journey planner finds scheduled direct trips or one-transfer trips between actual stop IDs.",
     experience: [
-      { step: "01", title: "Find your stop on the real map", description: "Pan and zoom around Blacksburg, search published stop names, or request browser location to discover a nearby stop." },
-      { step: "02", title: "Inspect a published bus line", description: "Filter by route and view actual stop coordinates and a representative GTFS shape. Select a marker to set a start or destination." },
-      { step: "03", title: "Compare scheduled trips", description: "Choose two published stops and a date/time. Review direct or single-transfer itinerary options with scheduled boarding and arrival times, never invented ETAs." },
+      { title: "Find your stop on the real map", description: "Pan and zoom around Blacksburg, search published stop names, or request browser location to discover a nearby stop." },
+      { title: "Inspect a published bus line", description: "Filter by route and view actual stop coordinates and a representative GTFS shape. Select a marker to set a start or destination." },
+      { title: "Compare scheduled trips", description: "Choose two published stops and a date/time. Review direct or single-transfer itinerary options with scheduled boarding and arrival times, never invented ETAs." },
     ],
     decisions: [
       { title: "Ground the map in an agency feed", description: "The server reads GTFS stops, shapes, routes, trips, calendars and stop times, and exposes a compact JSON interface to the client.", tradeoff: "The agency feed can be temporarily unavailable or expire; the UI provides a transparent failure state and links to official schedules." },
@@ -98,7 +97,7 @@ export const projects: Project[] = [
   }
   ,{
     slug: "muse",
-    index: "03",
+
     title: "Muse",
     category: "Creative tools · Visual discovery",
     headline: "The space between inspiration and an idea.",
@@ -111,9 +110,9 @@ export const projects: Project[] = [
     question: "What if saving inspiration were just the beginning—not the end—of the creative process?",
     approach: "Muse starts with a deliberately curated reference library and connects a familiar save-to-board workflow to an open spatial canvas. People can upload their own images, collect references, add ideas as notes, physically rearrange objects and export either a shareable PNG or structured board data.",
     experience: [
-      {step:"01", title:"Discover a direction",description:"Filter a real collection by category or search visual tags. Imported images become private additions to the gallery."},
-      {step:"02", title:"Collect with intention",description:"Save a visual to a named board. Existing boards display image previews and item counts rather than a flat file list."},
-      {step:"03", title:"Compose in space",description:"Open Studio to drag images and notes into relationships. Keyboard arrow keys can move the selected item and board images can be exported as PNG, with editable board data available as JSON."}
+      { title:"Discover a direction",description:"Filter a real collection by category or search visual tags. Imported images become private additions to the gallery."},
+      { title:"Collect with intention",description:"Save a visual to a named board. Existing boards display image previews and item counts rather than a flat file list."},
+      { title:"Compose in space",description:"Open Studio to drag images and notes into relationships. Keyboard arrow keys can move the selected item and board images can be exported as PNG, with editable board data available as JSON."}
     ],
     decisions: [
       {title:"Make imagery primary",description:"The discovery grid uses expressive imagery, compact metadata, and an action that appears where it is needed.",tradeoff:"Image-rich grids can become noisy; category filters, search and generous spacing keep choices manageable."},
@@ -132,7 +131,7 @@ export const projects: Project[] = [
   },
   {
     slug: "exposure",
-    index: "04",
+
     title: "Exposure",
     category: "Creative operations · Professional photo workflow",
     headline: "A calmer way to get from shoot to select.",
@@ -145,9 +144,9 @@ export const projects: Project[] = [
     question: "How might a photographer move through hundreds of images and client decisions without losing the thread?",
     approach: "Exposure is organized around three distinct jobs: inspect the library, review and cull one frame at a time, then simulate a client's approve/request-changes workflow. Files are imported privately in the browser and selected images can be exported as an actual ZIP with a CSV manifest.",
     experience: [
-      {step:"01", title:"Bring in the shoot",description:"Import JPG, PNG and other supported image files. A concise collection summary shows which images need attention."},
-      {step:"02", title:"Edit without interruption",description:"Use a focused photo viewer with keyboard navigation, star ratings, a pick shortcut and a filmstrip."},
-      {step:"03", title:"Proof, decide, deliver",description:"Simulate approvals and revision requests with comments, then export the selected originals and a review manifest."}
+      { title:"Bring in the shoot",description:"Import JPG, PNG and other supported image files. A concise collection summary shows which images need attention."},
+      { title:"Edit without interruption",description:"Use a focused photo viewer with keyboard navigation, star ratings, a pick shortcut and a filmstrip."},
+      { title:"Proof, decide, deliver",description:"Simulate approvals and revision requests with comments, then export the selected originals and a review manifest."}
     ],
     decisions: [
       {title:"Put the image first",description:"The review screen is intentionally dark and visually quiet so images—not interface chrome—hold attention.",tradeoff:"Compact dark controls require rigorous contrast, visible focus states and clearly labeled actions."},

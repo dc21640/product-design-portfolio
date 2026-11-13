@@ -55,7 +55,6 @@
 .refined-index-links {display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; gap:6px;}
 .refined-index-links a {min-width:0; padding:11px 9px; display:flex; align-items:center; gap:7px; color:#25352a; font-size:14px; font-weight:660; border-radius:4px; transition:background .17s ease;}
 .refined-index-links a:hover, .refined-index-links a:focus-visible {background:#e8eee8;}
-.refined-index-no {font-size:10px;color:#7a8b7d;font-weight:700;}
 .refined-index-arrow {margin-left:auto;color:#688371;font-size:15px;}
 .featured-project {scroll-margin-top:108px;}
 /* Keep the featured introduction short, with cards visible sooner. */

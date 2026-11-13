@@ -36,7 +36,6 @@ export default function Home() {
           <div className="refined-index-links">
             {projects.map((project) => (
               <a key={project.slug} href={`#project-${project.slug}`}>
-                <span className="refined-index-no">{project.index}</span>
                 {project.title}
                 <span className="refined-index-arrow" aria-hidden="true">↗</span>
               </a>
@@ -48,7 +47,7 @@ export default function Home() {
       <section className="work-section" id="work" aria-labelledby="work-title">
         <div className="shell">
           <div className="section-intro">
-            <div><p className="kicker">01 / SELECTED WORK</p><h2 id="work-title">Four projects. Four perspectives<span className="title-stop">.</span></h2></div>
+            <div><p className="kicker">SELECTED WORK</p><h2 id="work-title">Four projects. Four perspectives<span className="title-stop">.</span></h2></div>
             <p>AI research, transit navigation, visual discovery, and professional photography. Open a case study or try the real prototype.</p>
           </div>
           <div className="featured-projects">
@@ -59,7 +58,7 @@ export default function Home() {
       </section>
 
       <section className="about-teaser shell" aria-labelledby="approach-title">
-        <div className="about-teaser-title"><p className="kicker">02 / HOW I WORK</p><h2 id="approach-title">Curiosity meets<br/><em>structure.</em></h2></div>
+        <div className="about-teaser-title"><p className="kicker">HOW I WORK</p><h2 id="approach-title">Curiosity meets<br/><em>structure.</em></h2></div>
         <div className="about-teaser-copy"><p>I study Industrial &amp; Systems Engineering with a minor in Computer Science at Virginia Tech. I’m interested in the space where technical complexity becomes understandable, useful experiences.</p><p>My process starts with the problem, continues through thoughtful prototypes, and improves through observation and feedback.</p><Link href="/about" className="inline-link">More about me <ArrowUpRight size={18}/></Link></div>
       </section>
     </main>

@@ -175,7 +175,7 @@ export function TransitMap(){
     <div className="tf-legend"><span><i className="tf-legend-dot"/> Published route and stop data</span><span><ClockIcon/> Schedules, not live arrivals</span><a href={BT_SCHEDULES} target="_blank" rel="noopener noreferrer">Official BT schedules ↗</a></div>
     <div className="tf-layout">
       <div className="tf-side">
-        <div className="tf-side-section tf-search-section"><div className="tf-stephead"><span className="tf-stepnum">01</span><h3>Explore the network</h3></div>
+        <div className="tf-side-section tf-search-section"><div className="tf-stephead"><h3>Explore the network</h3></div>
           <label htmlFor="tf-stop-search">Find a stop</label><div className="tf-input-icon"><PinIcon/><input id="tf-stop-search" type="search" autoComplete="off" value={stopQuery} onChange={e=>setStopQuery(e.target.value)} placeholder="Try Newman Library or Torgersen" disabled={!data}/></div>
           {stopQuery&&<div className="tf-suggestions" aria-label="Matching stops">{stopResults.length?stopResults.map(s=><button type="button" key={s.id} onClick={()=>{focusStop(s);setStopQuery('');}}><strong>{short(s.name)}</strong><span>{s.routeIds.length} route connections ↗</span></button>):<p>No matching stops in the Blacksburg area.</p>}</div>}
           <div className="tf-route-heading"><label htmlFor="tf-route">Bus route</label><span>{routes.length} lines</span></div>
@@ -183,7 +183,7 @@ export function TransitMap(){
           {activeRoute&&<div className="tf-route-callout"><RouteLine route={activeRoute}/><div><strong>{activeRoute.name}</strong><small>{activeRoute.stopIds.length} listed stops · {activeRoute.shapeKind==='published'?'GTFS route shape':'Stop locations only'}</small></div></div>}
           {selected&&<div className="tf-stop-focus"><div className="tf-stop-focus-title"><PinIcon/><strong>{selected.name}</strong></div><p>Routes: {selected.routeIds.filter(id=>routeIndex.has(id)).map(id=>routeIndex.get(id)?.shortName).join(', ')||'Unlisted'}</p><p>Wheelchair boarding: {selected.wheelchair==='unknown'?'Not specified in the published feed':selected.wheelchair==='yes'?'Listed as accessible':'Listed as not accessible'}</p><div><button type="button" onClick={()=>chooseStop(selected.id,'from')}>Start here</button><button type="button" onClick={()=>chooseStop(selected.id,'to')}>Go here</button></div></div>}
         </div>
-        <div className="tf-side-section"><div className="tf-stephead"><span className="tf-stepnum">02</span><h3>Plan a bus trip</h3></div>
+        <div className="tf-side-section"><div className="tf-stephead"><h3>Plan a bus trip</h3></div>
           <form onSubmit={searchTrip} className="tf-trip-form"><label htmlFor="tf-from">Starting stop</label><select id="tf-from" value={from} onChange={e=>chooseStop(e.target.value,'from')} disabled={!data} required><option value="">Choose a bus stop</option>{stops.map(s=><option key={s.id} value={s.id}>{stopLabel(s)}</option>)}</select>
             <button type="button" className="tf-swap" onClick={()=>{setFrom(to);setTo(from);setPlan(null);}} disabled={!from&&!to} aria-label="Swap start and destination">⇅ Swap direction</button>
             <label htmlFor="tf-to">Destination stop</label><select id="tf-to" value={to} onChange={e=>chooseStop(e.target.value,'to')} disabled={!data} required><option value="">Choose destination</option>{stops.map(s=><option key={s.id} value={s.id}>{stopLabel(s)}</option>)}</select>

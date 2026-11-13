@@ -1,6 +1,0 @@
-import Link from 'next/link';
-import type {Metadata} from 'next';
-import {MuseApp} from '@/components/muse-app';
-import {ArrowLeft} from '@/components/icons';
-export const metadata:Metadata={title:'Muse — Visual discovery and moodboards',description:'A visual discovery space with a working moodboard studio, saved collections, notes and local image imports.'};
-export default function Page(){return <main id="main" className="lab-page creative-lab"><div className="shell lab-intro"><Link className="back-link" href="/projects/muse"><ArrowLeft size={17}/> Muse case study</Link><p className="kicker">INTERACTIVE CREATIVE TOOL / 03</p><div className="lab-intro-row"><h1>Collect a feeling.<br/><em>Make it tangible.</em></h1><p>Find visual references, make boards, move pieces into place, and add the thoughts that connect them. Import your own images to make the space yours.</p></div></div><div className="shell creative-app-stage"><MuseApp/></div><div className="shell lab-after"><p><strong>A real local-first workflow.</strong> Your image imports and board edits stay in this browser. Sample media is credited in the README. No online search, accounts, or cloud collaboration are implemented.</p><Link className="inline-link" href="/projects/muse">Read the design case study ↗</Link></div></main>}
